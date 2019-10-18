@@ -10,17 +10,17 @@ mongoose.connect('mongodb://johny:qwerty123@ds235658.mlab.com:35658/user', { use
 
 app.get('/newUser', async (req, res) => {
   const user = new User({
-    name: "johny",
-    password: "qwererer"
+    name: "opor",
+    password: "qwerty123"
   })
   await user.save()
-  res.status(200).send('Create user success!!!')
+  res.status(200).send("new complete!!")
 })
 
 const cachingUser = async (req, res, next) => {
-  const hit = await redis.get('users')
-  if (hit) {
-    return res.json(JSON.parse(hit))
+  const users = await redis.get('users')
+  if (users) {
+    return res.status(200).json(JSON.parse(users))
   }
   next()
 }
